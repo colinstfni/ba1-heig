@@ -27,7 +27,7 @@ jobs:
             - name: Add pdfs to `pdfs` directory
               run: |
                   mkdir -p pdfs
-                  pdfs = $(find . -name 'main.pdf')
+                  pdfs=$(find . -name 'main.pdf')
                   for pdf in $pdfs; do
                       course=${dirname $pdf | cut -d'/' -f1}
                       cp $pdf pdfs/$course.pdf
