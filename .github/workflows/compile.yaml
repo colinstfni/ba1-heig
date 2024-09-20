@@ -25,7 +25,7 @@ jobs:
               shell: bash
               id: compile
             - name: Upload PDFs
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: pdfs
                   path: "**/**/main.pdf"
