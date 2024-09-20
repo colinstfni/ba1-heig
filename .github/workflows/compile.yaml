@@ -24,8 +24,20 @@ jobs:
                   done
               shell: bash
               id: compile
-            - name: Upload PDFs
-              uses: actions/upload-artifact@v3
-              with:
-                  name: pdfs
-                  path: "**/**/main.pdf"
+            - name: Add pdfs to `pdfs` directory
+              run: |
+                  mkdir -p pdfs
+                  pdfs = $(find . -name 'main.pdf')
+                  for pdf in $pdfs; do
+                      course=${dirname $pdf | cut -d'/' -f1}
+                      cp $pdf pdfs/$course.pdf
+                  done
+              shell: bash
+            - name: Commit and push pdfs
+              run: |
+                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                  git config --global user.name "github-actions[bot]"
+                  git add pdfs
+                  git commit -m "Add pdfs"
+                  git push
+              shell: bash
