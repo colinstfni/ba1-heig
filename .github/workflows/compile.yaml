@@ -29,7 +29,8 @@ jobs:
                   mkdir -p pdfs
                   pdfs=$(find . -name 'main.pdf')
                   for pdf in $pdfs; do
-                      course=${dirname $pdf | cut -d'/' -f1}
+                      course=$(dirname $pdf | cut -d'/' -f2)
+                      echo "Copying $pdf to pdfs/$course.pdf"
                       cp $pdf pdfs/$course.pdf
                   done
               shell: bash
