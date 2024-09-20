@@ -1,0 +1,31 @@
+name: Compile Typst
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Typst
+              uses: cestef/setup-typst@main
+            - name: Find all typst files # structure: <course>/**/main.typ
+              run: echo "stdout=$(find . -name 'main.typ' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+              id: find_files
+            - name: Compile all files
+              run: |
+                  for file in ${{ steps.find_files.outputs.stdout }}; do
+                      pdf_file=$(echo $file | sed 's/\.typ$/.pdf/')
+                      echo "Compiling $file to $pdf_file"
+                      typst compile $file $pdf_file
+                  done
+              shell: bash
+              id: compile
+            - name: Upload PDFs
+              uses: actions/upload-artifact@v2
+              with:
+                  name: pdfs
+                  path: "**/**/main.pdf"
