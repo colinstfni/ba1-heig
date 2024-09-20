@@ -1,0 +1,3 @@
+[submodule "prg1/exos"]
+	path = prg1/exos
+	url = https://github.com/PRG1-HEIGVD/PRG1_Recueil_Exercices
