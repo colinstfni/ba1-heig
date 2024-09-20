@@ -9,6 +9,7 @@
   set text(
     font: "New Computer Modern",
     size: 12pt,
+    lang: "fr"
   )
 
   set page(
