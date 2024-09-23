@@ -7,6 +7,7 @@ on:
         # Only run when a .typ file is changed
         paths:
             - "**/*.typ"
+            - ".github/workflows/compile.yaml"
 
 jobs:
     build:
