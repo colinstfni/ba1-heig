@@ -51,19 +51,18 @@
     justify: true,
     leading: 0.55em,
   )
-
+  
+  let code_fill = luma(90%);
   set raw(align: start)
   show raw.where(block: false): box.with(
-    fill: luma(240),
+    fill: code_fill,
     inset: (x: 3pt, y: 0pt),
     outset: (y: 3pt),
     radius: 2pt,
   )
 
-  // Display block code in a larger block
-  // with more padding.
   show raw.where(block: true): block.with(
-    fill: luma(240),
+    fill: code_fill,
     inset: (x: 15pt, y: 12pt),
     radius: 4pt,
     width: 100%

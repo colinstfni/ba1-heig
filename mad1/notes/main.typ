@@ -1,5 +1,4 @@
-#import "config.typ"
-#import "config.typ": *
+#import "../../typst/config.typ": *
 
 
 #show: doc => conf(

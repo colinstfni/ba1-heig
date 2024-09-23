@@ -1,9 +1,11 @@
-#import "config.typ": conf
+#import "../../typst/config.typ": conf
 #import "@preview/gentle-clues:1.0.0": *
+
+#set text(lang: "fr")
 
 #show: doc => conf(
   title: [= PRG1 C++ - 2024 S1],
-  title_color: color.lighten(color.blue, 70%),
+  title_color: color.lighten(color.blue, 60%),
   authors: [Colin Stefani],
   header: (
     [_Septembre 2024_],
@@ -199,6 +201,26 @@ Cette dernière commande lance la synchronisation avec le remote tout juste conf
   *Toujours* `git pull` avant de `git push` ;) ça vous évitera des problèmes
 ]
 
+=== Concept de branches
+
+Les branches sont une notion commune dans les VCS, ils servent à continuer de travailler sur le projet sans altérer la "main-line". Dans `git`, un projet est représenté de manière linéaire:
+
+#figure(image("images/git_linear.png", width: 75%), caption: [Une branche et son historique de commits, Scott Chacon and Ben Straub])
+
+Au fur et à mesure des commits, le projet change. Dans le cas de figure où deux personnes travaillent sur le même projet et l'une veut implémenter une nouvelle fonctionnalité pendant que l'autre continue de travailler sur le projet lui-même, la création d'une branche serait pertinente:
+
+#figure(image("images/git_branch.png", width: 65%), caption: [Plusieurs branches git fusionnées ensemble])
+
+Afin de savoir sur quelle branche on se trouve actuellement, `git` utilise également un pointeur spécial `HEAD`. Par exemple, si on se trouve actuellement sur `master`et qu'on crée une branche `testing`:
+
+#figure(image("images/git_head.png", width: 75%), caption: [Le pointeur `HEAD` pointant sur `master`])
+
+Et lorsqu'on change de branche avec `git switch testing` ou `git checkout testing`:
+
+#figure(image("images/git_head_2.png", width: 75%), caption: [Le pointeur `HEAD` pointant sur `testing`])
+
+Lorsqu'un commit sera fait sur la branche testing, le pointeur `HEAD` le suivra, on peut donc le considérer comme un "stack pointer" des commits sur la branche actuelle.
+
 === Résolution de conflits
 
 Des fois on se retrouve avec des trucs du genre:
@@ -216,8 +238,6 @@ VSCode inclut par défaut une interface `git` très facile d'utilisation, la plu
 
 
 Pour comprendre un minimum comment ça fonctionne derrière, il est conseillé de faire un premier merge à la main comme un(e) vaillant(e).
-
-#pagebreak()
 
 Les conflits sont dans le format texte suivant:
 
