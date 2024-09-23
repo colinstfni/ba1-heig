@@ -1,4 +1,4 @@
-#import "../../typst/config.typ": conf
+#import "../../typst/config.typ": *
 #import "@preview/gentle-clues:1.0.0": *
 #import "@preview/codly:1.0.0": *
 
@@ -32,7 +32,7 @@ Branching de C et et C++, mais C++ permet la programmation sous + de paradigmes 
 
 Avec l'exemple suivant:
 
-```c
+```cpp
 #include <iostream>
 #include <cstdlib>
 using namespace std;
@@ -87,7 +87,7 @@ D'autres arguments comme `--pedantic` (normes ISO), `-Wxx` (warnings) ou `-std=c
 #pagebreak()
 
 == Utilisation de `git`
-#codly(number-format: none)
+#disable-line-numbers()
 
 La commande `git` permet la gestion *versionnée* de projets (VCS, Version Control System). Cela fonctionne particulièrement bien en programmation lorsqu'on travaille à plusieurs sur un seul et même projet, car plusieurs personnes travaillent sur leur propre version (*branche*), et on fusionne ensemble toutes les modifications (*merge*). 
 
@@ -259,7 +259,7 @@ VSCode inclut par défaut une interface `git` très facile d'utilisation, la plu
 Pour comprendre un minimum comment ça fonctionne derrière, il est conseillé de faire un premier merge à la main comme un(e) vaillant(e).
 
 Les conflits sont dans le format texte suivant:
-#codly(number-format: (n) => [#n])
+#enable-line-numbers()
 ```
 <<<<<<<
 Les changements sur HEAD (la branche actuelle, current)

@@ -15,6 +15,10 @@
 
 #let remark = thmplain("remark", "Remarque").with(numbering: none)
 
+#let number-format = (n) => text(luma(65%))[#n]
+#let enable-line-numbers = () => codly(number-format: number-format)
+#let disable-line-numbers = () => codly(number-format: none)
+
 #let conf(
   title: [],
   title_color: color.aqua,
@@ -33,9 +37,11 @@
   show: thmrules.with(qed-symbol: $square$)
   
   show: codly-init.with()
+
   codly(
     zebra-fill: none,
-    inset: 4pt
+    inset: 4pt,
+    number-format: number-format
   )
   
   set page(
