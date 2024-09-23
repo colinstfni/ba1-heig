@@ -151,6 +151,12 @@ gh auth setup-git
 
 Et pouf c'est magique ça marche!
 
+Dans le cas où vous voulez travailler avec plusieurs comptes GitHub sur le même ordinateur, vous pouvez répéter la procédure précédente et changer de compte avec:
+
+```sh
+gh auth switch -u <USER>
+```
+
 === Rédaction de changements
 
 On peut maintenant effectuer des changements qui seront traqués par `git`. Si on crée un fichier "pouet":
@@ -213,13 +219,25 @@ Au fur et à mesure des commits, le projet change. Dans le cas de figure où deu
 
 Afin de savoir sur quelle branche on se trouve actuellement, `git` utilise également un pointeur spécial `HEAD`. Par exemple, si on se trouve actuellement sur `master`et qu'on crée une branche `testing`:
 
-#figure(image("images/git_head.png", width: 75%), caption: [Le pointeur `HEAD` pointant sur `master`])
+#figure(image("images/git_head.png", width: 75%), caption: [Le pointeur `HEAD` pointant sur `master`, Scott Chacon and Ben Straub])
 
 Et lorsqu'on change de branche avec `git switch testing` ou `git checkout testing`:
 
-#figure(image("images/git_head_2.png", width: 75%), caption: [Le pointeur `HEAD` pointant sur `testing`])
+#figure(image("images/git_head_2.png", width: 75%), caption: [Le pointeur `HEAD` pointant sur `testing`, Scott Chacon and Ben Straub])
 
-Lorsqu'un commit sera fait sur la branche testing, le pointeur `HEAD` le suivra, on peut donc le considérer comme un "stack pointer" des commits sur la branche actuelle.
+Lorsqu'un commit sera fait sur la branche testing, le pointeur `HEAD` le suivra, on peut donc le considérer comme un "stack pointer" des commits sur la branche actuelle. Ce pointeur peut être vu lorsqu'on exécute la commande `git log --oneline`:
+
+```sh
+git log --oneline
+```
+```
+b460714 (HEAD -> main, origin/main) Add stuff
+e55f0dd Update compile.yaml
+50bcf7d Update README
+16f7123 Add a README
+```
+
+Ici, `HEAD` pointe vers `main`, avec le dernier commit étant `b460714`.
 
 === Résolution de conflits
 
