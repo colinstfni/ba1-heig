@@ -1,5 +1,6 @@
 #import "../../typst/config.typ": conf
 #import "@preview/gentle-clues:1.0.0": *
+#import "@preview/codly:1.0.0": *
 
 #set text(lang: "fr")
 
@@ -86,6 +87,7 @@ D'autres arguments comme `--pedantic` (normes ISO), `-Wxx` (warnings) ou `-std=c
 #pagebreak()
 
 == Utilisation de `git`
+#codly(number-format: none)
 
 La commande `git` permet la gestion *versionnée* de projets (VCS, Version Control System). Cela fonctionne particulièrement bien en programmation lorsqu'on travaille à plusieurs sur un seul et même projet, car plusieurs personnes travaillent sur leur propre version (*branche*), et on fusionne ensemble toutes les modifications (*merge*). 
 
@@ -125,6 +127,7 @@ gh auth login
 ```
 
 On séléctionne "GitHub.com" pour le type de compte, "HTTPS" pour le protocole et enfin "Login with a web browser". Le CLI va vous donner un code:
+
 
 ```
 ! First copy your one-time code: ABCD-1234
@@ -168,9 +171,7 @@ git status --short
 
 ```
 On branch main
-
 No commits yet
-
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 	pouet
@@ -258,7 +259,7 @@ VSCode inclut par défaut une interface `git` très facile d'utilisation, la plu
 Pour comprendre un minimum comment ça fonctionne derrière, il est conseillé de faire un premier merge à la main comme un(e) vaillant(e).
 
 Les conflits sont dans le format texte suivant:
-
+#codly(number-format: (n) => [#n])
 ```
 <<<<<<<
 Les changements sur HEAD (la branche actuelle, current)
@@ -272,3 +273,143 @@ Changement de votre branche qui diffère (incoming)
 #figure(image("images/merge_vscode.png"), caption: [L'aide de VSCode lors d'un conflit de fusionnage])
 
 Au delà de résoudre des conflits, le mieux c'est quand même de ne pas en créer: pour ce faire, il est préférable de "modulariser" le projet en créant différents fichiers pour chaque fonctionnalité.
+
+
+#pagebreak()
+
+== Bases de C++
+
+
+=== Déclaration de variables
+
+Chaque variable en C++ doit être déclarée à l'aide de son *type*. On peut lui assigner une valeur directement: ```cpp int x = 9;``` ou simplement la déclarer: ```cpp int x;```.
+
+Les variables sont utiles pour:
+- Stocker des valeurs dynamiques (input utilisateur, résultat d'une opération)
+- Faciliter la lecture et modification d'un programme
+
+Avec l'exemple suivant:
+
+```cpp
+cout << "Nb bouteilles dans un pack : " << 6;
+cout << "Volume d'un pack(l) = " << 0.33 * 6;
+cout << "Poids d'un pack(g) = " << 13.2 * 6;
+cout << "Entrer le Nb de pack à expédier :";
+cout << "Le poids de votre colis(g) :" << 13.2 * 6 * nb_pack;
+```
+
+On pourrait le réécrire avec des variables:
+
+```cpp
+int nb_bouteilles = 6;
+cout << "Nb bouteilles dans un pack : " << nb_bouteilles;
+int vol_bouteille = 33;
+cout << "Volume d'un pack(cl) = " << vol_bouteille * nb_bouteilles;
+int poids_bouteille = 13;
+int poids_pack = poids_bouteille * nb_bouteilles;
+cout << "Poids d'un pack(g) = " << poids_pack;
+cout << "Entrer le Nb de pack à expédier :";
+int nb_pack = 0;
+cin >> nb_pack;
+cout << "Le poids de votre colis(g) :" << poids_pack * nb_pack;
+```
+
+#info[
+  Une variable peut être initialisée de plusieurs manières en C++:
+  - "Comme en C" ```cpp int age = 6;```
+  - "Par constructeur" ```cpp int age(6)```
+  - "Uniforme" ```cpp int age{6}``` (11+)
+]
+
+Une variable:
+- *doit* commencer par `_` ou une lettre
+- *peut* contenir des lettres, des chiffres et `_`
+- *ne peut pas* contenir d'espaces ou de caractères spéciaux
+- *ne peut pas* être un mot réservé C++ (```cpp while```, ```cpp true```)
+
+=== Core guidelines
+
+Des règles de nomenclature sont définies dans le C++ Core book:
+
+- *NL5* : Le nom d’une variable ne doit pas mentionner son type (i.e. n’utilisez pas la notation hongroise)
+- *NL7* : La longueur d’un nom de variable doit être ± proportionnelle à sa portée (distance entre ses utilisations)
+- *NL8* : Utilisez une nomenclature consistante : snake_case, camelCase, PascalCase, ...
+- *NL9* : N’utilisez pas `TOUT_EN_MAJUSCULE` pour les identificateurs autres que les macros (vues en PRG2)
+- *NL10* : Préférez le style snake_case, c’est le style utilisé par la Standard Template Library. Utilisez éventuellement Majuscule_initiale pour les types que vous définissez vous-même, comme Bjarne Stroustrup.
+
+=== Constantes
+
+Les variables constantes ne changent *pas* de valeur, on dit qu'elle sont *immutables*.
+
+On les déclare de la manière suivante:
+
+```cpp
+const int meaning_to_life = 42;
+```
+
+Son initialisation à la déclaration est *obligatoire*.
+
+#info[
+  C++ Core guideline *CON.1*: Par défault, toutes les variables doivent être constantes. (Rust-like idiom)
+]
+
+=== Types de base
+
+En C++, toutes les données sont *typées*. Un type définit:
+
+- Comment la donnée est stockée en mémoire (taille)
+
+- Les opérations possibles
+
+Les types fondamentaux fournis par le language permettent de stocker les données les plus basiques:
+- Caractères (```cpp char```, 1 byte, code ASCII)
+
+- Nombres entiers (```cpp int```)
+
+- Nombre réels (```cpp float```, ```cpp double```, le ```cpp double``` est *2 fois* plus précis que le ```cpp float```)
+
+- Booléens (```cpp bool```)
+
+- Chaînes de caractères (```cpp string```, classe)
+
+Le mot-clé ```cpp auto``` peut être utilisé pour laisser le compilateur déduire automatiquement le type de la variable.
+
+=== Expressions
+
+En C++, tout ce qui correspond à une valeur est une expression. On dit qu'elle "renvoie" une valeur.
+
+La plus simple des expressions est une constante exprimée littéralement:
+
+```cpp
+'a' // char
+"sdkfjgshdkg" // string
+42 // int
+3.14 // double
+```
+
+#info[
+  La `lvalue` est la valeur de *localisation*, par exemple le nom de la variable. La `rvalue` est la valeur de *résultat*, par exemple un littéral constant, les résultats d'expression (qui ne se résolvent pas en `lvalues`, e.g. ```cpp a+b```).
+]
+
+=== Opérateur d'affectation
+
+L'opérateur ```cpp=``` copie la valeur de l'expression de droite à gauche. Il renvoie également lui-même une `lvalue`. Toute expression d'affectation s'effectue de *droite à gauche*.
+
+```cpp
+x = y = 42;
+```
+
+Ici, d'abord ```cpp y = 42;```, puis ```cpp x = y;```, donc ```cpp x = 42;```
+
+=== Arithmétique sur les réels/entiers
+
+Les types *réels* (```cpp float```, ```cpp double```), disposent des opérateurs ```cpp+, -,*,/``` qui se comportent comme en maths.
+
+Les types *entiers* (```cpp int```, ...) disposent des opérateurs ```cpp+, -, *, /, %```
+#warning[
+  La division ```cpp/``` entière renvoie un nombre *entier*. On a toujours l'égalité suivante:
+  $ (a/b) * b + (a % b) = a $
+  $ a eq.triple r space (mod b) => (a/b)*b + r = a $
+  
+  Le modulo ```cpp%``` renvoie le reste de la division euclidienne, son signe correspond au signe de $a$ pour $a eq.triple r space (mod b)$ ou ```cpp a % b```
+]

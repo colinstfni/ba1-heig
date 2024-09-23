@@ -1,5 +1,5 @@
 #import "@preview/ctheorems:1.1.2": *
-#show: thmrules.with(qed-symbol: $square$)
+#import "@preview/codly:1.0.0": *
 
 #let theorem = thmbox("theorem", "Théorême", fill: rgb("#eeffee")).with(numbering: (..nums) => nums.pos().map(str).slice(1).join("."))
 #let corollary = thmplain(
@@ -29,7 +29,15 @@
   )
 
   show sym.emptyset: set text(font: "Fira Sans")
-
+  
+  show: thmrules.with(qed-symbol: $square$)
+  
+  show: codly-init.with()
+  codly(
+    zebra-fill: none,
+    inset: 4pt
+  )
+  
   set page(
     paper: "a4",
     header: locate(
@@ -53,20 +61,6 @@
   )
   
   let code_fill = luma(90%);
-  set raw(align: start)
-  show raw.where(block: false): box.with(
-    fill: code_fill,
-    inset: (x: 3pt, y: 0pt),
-    outset: (y: 3pt),
-    radius: 2pt,
-  )
-
-  show raw.where(block: true): block.with(
-    fill: code_fill,
-    inset: (x: 15pt, y: 12pt),
-    radius: 4pt,
-    width: 100%
-  )
 
 
   set heading(numbering: (a, ..nums) => {

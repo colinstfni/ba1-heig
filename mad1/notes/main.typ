@@ -1,9 +1,14 @@
 #import "../../typst/config.typ": *
+#import "@preview/cetz:0.2.2"
+#import "@preview/cetz-venn:0.1.1"
 
+#set text(lang: "fr")
+
+#let main_color =  color.lighten(color.yellow, 30%)
 
 #show: doc => conf(
   title: [= MAD1 Ensembles - 2024 S1],
-  title_color: color.lighten(color.yellow, 30%),
+  title_color: main_color,
   authors: [Colin Stefani],
   header: (
     [_Septembre 2024_],
@@ -120,3 +125,140 @@ L'ensemble vide ne contient... ben rien. Il est noté ${}$ ou $nothing$.
 ]
 
 En pratique, les éléments d'un ensemble universel, noté $Omega = {...}$, tout comme en probabilités avec les issues possibles d'une expérience aléatoire.
+
+=== Sous-ensembles
+
+#definition[
+  L'ensemble $B$ est un sous-ensemble ou une partie de $A$ si tous les éléments de $B$ sont aussi des éléments de $A$. On dit aussi dans ces cas que $B$ est inclus dans $A$. On note: $B in A$
+]
+
+$ B in A <==> forall x in B, x in A $
+
+1. Pour tout ensemble $A$, $A$ est un sous-ensemble de lui-même ($A subset A$)
+
+2. L'ensemble vide est sous-ensemble de n'importe quel ensemble $A$ ($emptyset subset A$) Et donc $emptyset subset emptyset$
+
+3.  $A=B$ $<==>$ $A subset B$ #underline[et] $B subset A$ (principe de double inclusion) 
+
+#example[
+  Pour $A = {1,2,3}$, $1 subset.not A$ mais $1 in A$, et ${1} subset A$ mais ${1} in.not A$
+]
+
+#definition[
+  Si $B subset.eq A$ et $B != A$, alors ont dit que $B$ est *strictement inclus* dans $A$, noté $B subset A$ ou $B subset.neq A$. Aussi, $B subset A <==> B subset.eq A$
+]
+
+==== Visualisation d'ensembles
+
+Le diagramme d'Euler (Venn) reflète les relations entre ensembles.
+
+#figure(
+  cetz.canvas({
+    cetz-venn.venn2(
+      name: "venn",
+    )
+    import cetz.draw: *
+    content("venn.a", [A])
+    content("venn.b", [B])
+  }),
+  caption: [Diagramme de Venn avec $A$ et $B$]
+)
+
+#figure(
+  cetz.canvas({
+    cetz-venn.venn3(
+      name: "venn",
+    )
+    import cetz.draw: *
+    content("venn.a", [A])
+    content("venn.b", [B])
+    content("venn.c", [C])
+  }),
+  caption: [Diagramme de Venn avec $A$, $B$ et $C$]
+)
+
+
+=== Opérations
+
+#definition[
+  L'intersection de $A$ et $B$, notée $A sect B$ est l'ensemble des éléments appartenant à $A$ #underline[et] $B$, soit $A sect B <==> {x | x in A and x in B}$
+]
+
+#figure(cetz.canvas({
+    cetz-venn.venn2(
+      name: "venn",
+      ab-fill: main_color
+    )
+    import cetz.draw: *
+    content("venn.a", [A])
+    content("venn.b", [B])
+}), caption: [$A sect B$])
+
+#definition[
+  L'union ou la réunion de $A$ et $B$, notée $A union B$, correspond à l'ensemble des éléments se trouvant soit dans $A$, soit dans $B$.
+]
+
+#figure(cetz.canvas({
+    cetz-venn.venn2(
+      name: "venn",
+      a-fill: main_color,
+      b-fill: main_color,
+      ab-fill: main_color
+    )
+    import cetz.draw: *
+    content("venn.a", [A])
+    content("venn.b", [B])
+}), caption: [$A union B$])
+
+#definition[
+  Le complément (ou complémentaire) de $A$ est l'ensemble des éléments de l'ensemble universel qui ne sont pas dans $A$, noté $overline(A) = {x | x in.not A}$.
+]
+
+#figure(cetz.canvas({
+    cetz-venn.venn2(
+      name: "venn",
+      b-fill: main_color,
+      not-ab-fill: main_color
+    )
+    import cetz.draw: *
+    content("venn.a", [A])
+    content("venn.b", [B])
+}), caption: [$overline(A)$])
+
+#definition[
+  La différence entre $A$ et $B$ notée $A without B$ ("$A$ sans $B$"), est l'ensemble des éléemtsn appartenant à $A$, mais pas $B$.
+]
+
+#figure(cetz.canvas({
+    cetz-venn.venn2(
+      name: "venn",
+      a-fill: main_color,
+    )
+    import cetz.draw: *
+    content("venn.a", [A])
+    content("venn.b", [B])
+}), caption: [$A without B$])
+
+On note également les propriétés suivantes:
+
+1. $overline(A) = Omega without A$
+2. $A without B = A sect overline(B)$
+
+#definition[
+  La différence symmétrique de $A$ et $B$, notée $A xor B$ ($A triangle.t.small B$) est l'ensemble des éléments appartenants soit à $A$, soit $B$, #underline[mais pas les deux] (XOR).
+]
+
+
+#figure(cetz.canvas({
+    cetz-venn.venn2(
+      name: "venn",
+      a-fill: main_color,
+      b-fill: main_color
+    )
+    import cetz.draw: *
+    content("venn.a", [A])
+    content("venn.b", [B])
+}), caption: [$A xor B$])
+
+On note aussi: 
+$ A xor B = (A without B) union (B without A) = (A union B) without (A sect B) $
