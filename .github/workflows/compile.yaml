@@ -20,10 +20,11 @@ jobs:
               id: find_files
             - name: Compile all files
               run: |
+                  ROOT_DIR=$(pwd)
                   for file in ${{ steps.find_files.outputs.stdout }}; do
                       pdf_file=$(echo $file | sed 's/\.typ$/.pdf/')
                       echo "Compiling $file to $pdf_file"
-                      typst compile $file $pdf_file
+                      typst compile $file $pdf_file --root $ROOT_DIR
                   done
               shell: bash
               id: compile
