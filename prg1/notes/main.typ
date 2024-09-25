@@ -11,16 +11,16 @@
   header: (
     [_Septembre 2024_],
     [PRG1 - C++],
-    [_CS_]
+    [_CS_],
   ),
-  doc
+  doc,
 )
 
 == Introduction
 
 === Bref historique du C/C++
 
-Langage originaire de FORTRAN, un bordel sans nom où tout le monde veut améliorer le langage de l'autre, 3 mecs (Thompson, Ritchie, Kernighan) finissent par créer B qui deviendra C après la "traduction" de UNIX qui a engendré des ajouts de fonctionnalités. 
+Langage originaire de FORTRAN, un bordel sans nom où tout le monde veut améliorer le langage de l'autre, 3 mecs (Thompson, Ritchie, Kernighan) finissent par créer B qui deviendra C après la "traduction" de UNIX qui a engendré des ajouts de fonctionnalités.
 
 Entrée dans le standard ANSI (American National STandards Institute), puis adopté par ISO.
 
@@ -89,7 +89,7 @@ D'autres arguments comme `--pedantic` (normes ISO), `-Wxx` (warnings) ou `-std=c
 == Utilisation de `git`
 #disable-line-numbers()
 
-La commande `git` permet la gestion *versionnée* de projets (VCS, Version Control System). Cela fonctionne particulièrement bien en programmation lorsqu'on travaille à plusieurs sur un seul et même projet, car plusieurs personnes travaillent sur leur propre version (*branche*), et on fusionne ensemble toutes les modifications (*merge*). 
+La commande `git` permet la gestion *versionnée* de projets (VCS, Version Control System). Cela fonctionne particulièrement bien en programmation lorsqu'on travaille à plusieurs sur un seul et même projet, car plusieurs personnes travaillent sur leur propre version (*branche*), et on fusionne ensemble toutes les modifications (*merge*).
 
 === Création du dépôt
 
@@ -212,19 +212,31 @@ Cette dernière commande lance la synchronisation avec le remote tout juste conf
 
 Les branches sont une notion commune dans les VCS, ils servent à continuer de travailler sur le projet sans altérer la "main-line". Dans `git`, un projet est représenté de manière linéaire:
 
-#figure(image("images/git_linear.png", width: 75%), caption: [Une branche et son historique de commits, Scott Chacon and Ben Straub])
+#figure(
+  image("images/git_linear.png", width: 75%),
+  caption: [Une branche et son historique de commits, Scott Chacon and Ben Straub],
+)
 
 Au fur et à mesure des commits, le projet change. Dans le cas de figure où deux personnes travaillent sur le même projet et l'une veut implémenter une nouvelle fonctionnalité pendant que l'autre continue de travailler sur le projet lui-même, la création d'une branche serait pertinente:
 
-#figure(image("images/git_branch.png", width: 65%), caption: [Plusieurs branches git fusionnées ensemble])
+#figure(
+  image("images/git_branch.png", width: 65%),
+  caption: [Plusieurs branches git fusionnées ensemble],
+)
 
 Afin de savoir sur quelle branche on se trouve actuellement, `git` utilise également un pointeur spécial `HEAD`. Par exemple, si on se trouve actuellement sur `master`et qu'on crée une branche `testing`:
 
-#figure(image("images/git_head.png", width: 75%), caption: [Le pointeur `HEAD` pointant sur `master`, Scott Chacon and Ben Straub])
+#figure(
+  image("images/git_head.png", width: 75%),
+  caption: [Le pointeur `HEAD` pointant sur `master`, Scott Chacon and Ben Straub],
+)
 
 Et lorsqu'on change de branche avec `git switch testing` ou `git checkout testing`:
 
-#figure(image("images/git_head_2.png", width: 75%), caption: [Le pointeur `HEAD` pointant sur `testing`, Scott Chacon and Ben Straub])
+#figure(
+  image("images/git_head_2.png", width: 75%),
+  caption: [Le pointeur `HEAD` pointant sur `testing`, Scott Chacon and Ben Straub],
+)
 
 Lorsqu'un commit sera fait sur la branche testing, le pointeur `HEAD` le suivra, on peut donc le considérer comme un "stack pointer" des commits sur la branche actuelle. Ce pointeur peut être vu lorsqu'on exécute la commande `git log --oneline`:
 
@@ -270,7 +282,10 @@ Changement de votre branche qui diffère (incoming)
 >>>>>>>
 ```
 
-#figure(image("images/merge_vscode.png"), caption: [L'aide de VSCode lors d'un conflit de fusionnage])
+#figure(
+  image("images/merge_vscode.png"),
+  caption: [L'aide de VSCode lors d'un conflit de fusionnage],
+)
 
 Au delà de résoudre des conflits, le mieux c'est quand même de ne pas en créer: pour ce faire, il est préférable de "modulariser" le projet en créant différents fichiers pour chaque fonctionnalité.
 
@@ -408,8 +423,8 @@ Les types *réels* (```cpp float```, ```cpp double```), disposent des opérateur
 Les types *entiers* (```cpp int```, ...) disposent des opérateurs ```cpp+, -, *, /, %```
 #warning[
   La division ```cpp/``` entière renvoie un nombre *entier*. On a toujours l'égalité suivante:
-  $ (a/b) * b + (a % b) = a $
-  $ a eq.triple r space (mod b) => (a/b)*b + r = a $
-  
+  $ (a / b) * b + (a % b) = a $
+  $ a eq.triple r space (mod b) => (a / b)*b + r = a $
+
   Le modulo ```cpp%``` renvoie le reste de la division euclidienne, son signe correspond au signe de $a$ pour $a eq.triple r space (mod b)$ ou ```cpp a % b```
 ]

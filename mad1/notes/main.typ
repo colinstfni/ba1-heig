@@ -4,7 +4,7 @@
 
 #set text(lang: "fr")
 
-#let main_color =  color.lighten(color.yellow, 30%)
+#let main_color = color.lighten(color.yellow, 30%)
 
 #show: doc => conf(
   title: [= MAD1 Ensembles - 2024 S1],
@@ -13,9 +13,9 @@
   header: (
     [_Septembre 2024_],
     [MAD - Ensembles],
-    [_CS_]
+    [_CS_],
   ),
-  doc
+  doc,
 )
 
 == Les ensembles
@@ -26,7 +26,7 @@
   Un ensemble est un regroupement d'éléments formant un tout.
 ]
 
-Dans les cas où notre ensemble est suffisamment petit, on peut l'écrire entre deux accolades: ${...}$ 
+Dans les cas où notre ensemble est suffisamment petit, on peut l'écrire entre deux accolades: ${...}$
 
 #example[
   L'ensemble des chiffres décimaux s'écrit: $E = {0,1,2,3,4,5,6,7,8,9}$
@@ -62,7 +62,7 @@ Cependant, en mathématiques, par soucis de clarté, on privilégie la *descript
 
 Pour tout $x$ vérifiant $P(x)$, on note:
 
-$ {x | P(x)} $ 
+$ {x | P(x)} $
 
 Qui se lit "$x$ tel que $P(x)$".
 
@@ -109,12 +109,12 @@ Les suffixes $+$ ou $-$ ajoutent une contrainte de signe à l'ensemble
 On distingue trois types d'intervalles réels, notés entre deux bornes $[$ et/ou $]$:
 
 - Intervalle *fermé*, lorsque les bornes sont *incluses* dans l'ensemble: $[-5; 10]$
-  - $ [a; b] <==> {x in RR | a <= x <= b }$
+  - $[a; b] <==> {x in RR | a <= x <= b}$
 - Intervalle *ouvert*, lorsque les bornes ne sont *pas incluses* dans l'ensemble: $]
 -5; 10[$ ou $]-infinity; 10[$
-  - $ ]a; b[ <==> {x in RR | a < x < b }$
+  - $]a; b[ <==> {x in RR | a < x < b}$
 - Intervalle *semi-ouvert*, lorsqu'une des deux bornes est incluse dans l'ensemble: $]-5; 10]$ ou $[-5; 10[$
-  - $ ]a; b] <==> {x in RR | a < x <= b }$
+  - $]a; b] <==> {x in RR | a < x <= b}$
 
 ==== Ensemble vide et ensemble universel
 
@@ -138,7 +138,7 @@ $ B in A <==> forall x in B, x in A $
 
 2. L'ensemble vide est sous-ensemble de n'importe quel ensemble $A$ ($emptyset subset A$) Et donc $emptyset subset emptyset$
 
-3.  $A=B$ $<==>$ $A subset B$ #underline[et] $B subset A$ (principe de double inclusion) 
+3. $A=B$ $<==>$ $A subset B$ #underline[et] $B subset A$ (principe de double inclusion)
 
 #example[
   Pour $A = {1,2,3}$, $1 subset.not A$ mais $1 in A$, et ${1} subset A$ mais ${1} in.not A$
@@ -154,27 +154,23 @@ Le diagramme d'Euler (Venn) reflète les relations entre ensembles.
 
 #figure(
   cetz.canvas({
-    cetz-venn.venn2(
-      name: "venn",
-    )
+    cetz-venn.venn2(name: "venn")
     import cetz.draw: *
     content("venn.a", [A])
     content("venn.b", [B])
   }),
-  caption: [Diagramme de Venn avec $A$ et $B$]
+  caption: [Diagramme de Venn avec $A$ et $B$],
 )
 
 #figure(
   cetz.canvas({
-    cetz-venn.venn3(
-      name: "venn",
-    )
+    cetz-venn.venn3(name: "venn")
     import cetz.draw: *
     content("venn.a", [A])
     content("venn.b", [B])
     content("venn.c", [C])
   }),
-  caption: [Diagramme de Venn avec $A$, $B$ et $C$]
+  caption: [Diagramme de Venn avec $A$, $B$ et $C$],
 )
 
 
@@ -184,52 +180,62 @@ Le diagramme d'Euler (Venn) reflète les relations entre ensembles.
   L'intersection de $A$ et $B$, notée $A sect B$ est l'ensemble des éléments appartenant à $A$ #underline[et] $B$, soit $A sect B <==> {x | x in A and x in B}$
 ]
 
-#figure(cetz.canvas({
+#figure(
+  cetz.canvas({
     cetz-venn.venn2(
       name: "venn",
-      ab-fill: main_color
+      ab-fill: main_color,
     )
     import cetz.draw: *
     content("venn.a", [A])
     content("venn.b", [B])
-}), caption: [$A sect B$])
+  }),
+  caption: [$A sect B$],
+)
 
 #definition[
   L'union ou la réunion de $A$ et $B$, notée $A union B$, correspond à l'ensemble des éléments se trouvant soit dans $A$, soit dans $B$.
 ]
 
-#figure(cetz.canvas({
+#figure(
+  cetz.canvas({
     cetz-venn.venn2(
       name: "venn",
       a-fill: main_color,
       b-fill: main_color,
-      ab-fill: main_color
+      ab-fill: main_color,
     )
     import cetz.draw: *
     content("venn.a", [A])
     content("venn.b", [B])
-}), caption: [$A union B$])
+  }),
+  caption: [$A union B$],
+)
 
 #definition[
   Le complément (ou complémentaire) de $A$ est l'ensemble des éléments de l'ensemble universel qui ne sont pas dans $A$, noté $overline(A) = {x | x in.not A}$.
 ]
 
-#figure(cetz.canvas({
+#figure(
+  cetz.canvas({
     cetz-venn.venn2(
       name: "venn",
       b-fill: main_color,
-      not-ab-fill: main_color
+      not-ab-fill: main_color,
     )
     import cetz.draw: *
     content("venn.a", [A])
     content("venn.b", [B])
-}), caption: [$overline(A)$])
+  }),
+  caption: [$overline(A)$],
+)
 
 #definition[
   La différence entre $A$ et $B$ notée $A without B$ ("$A$ sans $B$"), est l'ensemble des éléemtsn appartenant à $A$, mais pas $B$.
 ]
 
-#figure(cetz.canvas({
+#figure(
+  cetz.canvas({
     cetz-venn.venn2(
       name: "venn",
       a-fill: main_color,
@@ -237,7 +243,9 @@ Le diagramme d'Euler (Venn) reflète les relations entre ensembles.
     import cetz.draw: *
     content("venn.a", [A])
     content("venn.b", [B])
-}), caption: [$A without B$])
+  }),
+  caption: [$A without B$],
+)
 
 On note également les propriétés suivantes:
 
@@ -249,16 +257,19 @@ On note également les propriétés suivantes:
 ]
 
 
-#figure(cetz.canvas({
+#figure(
+  cetz.canvas({
     cetz-venn.venn2(
       name: "venn",
       a-fill: main_color,
-      b-fill: main_color
+      b-fill: main_color,
     )
     import cetz.draw: *
     content("venn.a", [A])
     content("venn.b", [B])
-}), caption: [$A xor B$])
+  }),
+  caption: [$A xor B$],
+)
 
-On note aussi: 
+On note aussi:
 $ A xor B = (A without B) union (B without A) = (A union B) without (A sect B) $
