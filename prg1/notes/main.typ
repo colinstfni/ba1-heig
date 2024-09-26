@@ -406,6 +406,7 @@ Ici, d'abord ```cpp y = 42;```, puis ```cpp x = y;```, donc ```cpp x = 42;```
 Les types *réels* (```cpp float```, ```cpp double```), disposent des opérateurs ```cpp+, -,*,/``` qui se comportent comme en maths.
 
 Les types *entiers* (```cpp int```, ...) disposent des opérateurs ```cpp+, -, *, /, %```
+
 #warning[
   La division ```cpp/``` entière renvoie un nombre *entier*. On a toujours l'égalité suivante:
   $ (a/b) * b + (a % b) = a $
@@ -413,3 +414,18 @@ Les types *entiers* (```cpp int```, ...) disposent des opérateurs ```cpp+, -, *
   
   Le modulo ```cpp%``` renvoie le reste de la division euclidienne, son signe correspond au signe de $a$ pour $a eq.triple r space (mod b)$ ou ```cpp a % b```
 ]
+
+Lorsqu'on effectue une opération modulo sur un $a <b$, le résultat sera toujours $a$, de même pour 0.
+
+=== Opérateurs d'affectation composée
+
+On a souvent besoin de soustraire ou d'ajouter une valeur à une variable, il existe donc des opérateurs "composés", tels que ```cpp +=```, ```cpp -=```, ```cpp *=``` ou ```cpp /=```.
+
+Il existe également l'opérateur ```cpp ++i``` ou ```cpp i++```. Ce dernier est pratique pour l'incrémentation "+1" d'une valeur (e.g. ```cpp for``` loop).
+
+#info[
+  ```cpp ++i``` et ```cpp i++``` ne retournent *pas la même valeur* ! Le ```cpp ++i``` va renvoyer la valeur *après* incrémentation, tandis que ```cpp i++``` renvoie la valeur *avant* l'incrémentation.
+]
+
+Il faut évidemment que la variable assignée ne soit pas constante puisqu'on change sa valeur.
+
