@@ -1,7 +1,7 @@
 default: run
 
-run: build
-    ./main.out
+run output="main.out": (build output)
+    ./{{output}}
 
-build:
-    g++ -o main.out --pedantic -std=c++20 main.cpp
+build output="main.out":
+    g++ -o {{output}} --pedantic -std=c++20 main.cpp

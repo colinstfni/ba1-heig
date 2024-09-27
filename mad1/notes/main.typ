@@ -253,7 +253,7 @@ On note également les propriétés suivantes:
 2. $A without B = A sect overline(B)$
 
 #definition[
-  La différence symmétrique de $A$ et $B$, notée $A xor B$ ($A triangle.t.small B$) est l'ensemble des éléments appartenants soit à $A$, soit $B$, #underline[mais pas les deux] (XOR).
+  La différence symmétrique de $A$ et $B$, notée $A xor B$ ($A triangle.t.small B$) est l'ensemble des éléments appartenants soit à $A$, soit $B$, *mais pas les deux* (XOR).
 ]
 
 
@@ -273,3 +273,121 @@ On note également les propriétés suivantes:
 
 On note aussi:
 $ A xor B = (A without B) union (B without A) = (A union B) without (A sect B) $
+
+#pagebreak()
+
+=== Propriétés et Identités
+
+==== Associativité
+
+$ A union (B union C) = (A union B) union C $
+
+$ A sect (B sect C) = (A sect B) sect C $
+
+#remark[
+  Ducoup, pas besoin de mettre des parenthèses.
+]
+
+==== Commutativité
+
+$ A union B = B union A $
+$ A sect B = B sect A $
+
+==== Distributivité
+
+$ A union (B sect C) = (A union B) sect (A union C) $
+$ A sect (B union C) = (A sect B) union (A sect C) $
+
+==== Lois de Boole-Morgan
+
+$ overline(A union B) = overline(A) sect overline(B) $
+$ overline(A sect B) = overline(A) union overline(B) $
+
+#remark[
+  Parallèles entre logique et ensembles:
+
+  #align(center)[
+    ```cpp A and B``` $<==> A sect B$
+
+    ```cpp A or B``` $<==> A union B$
+
+    ```cpp A xor B``` $<==> A xor B$
+
+    ```cpp not A``` $<==> overline(A)$
+  ]
+]
+
+#proof[
+  1#super[ère] Loi:
+  #table(
+    columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
+    align: center,
+  )[$A$][$B$][$A union B$][$A union overline(B)$][$overline(A)$][$overline(B)$][$overline(A) sect overline(B)$][0][0][0][1][1][1][1][0][1][1][0][1][0][0][1][0][1][0][0][1][0][1][1][1][0][0][0][0]
+  Les colonnes de $overline(A union B) $ et de $overline(A) sect overline(B)$ sont identiques, donc $overline(A union B) = overline(A) sect overline(B)$
+  #figure(grid(columns: 2)[#cetz.canvas({
+      cetz-venn.venn2(
+        name: "venn",
+        a-fill: main_color,
+        b-fill: main_color,
+        ab-fill: main_color
+      )
+      import cetz.draw: *
+      content("venn.a", [A])
+      content("venn.b", [B])
+      content("venn.not-ab", [$A union B$], anchor: "west")
+    }) ][#cetz.canvas({
+      cetz-venn.venn2(
+        name: "venn",
+        not-ab-fill: main_color,
+      )
+      import cetz.draw: *
+      content("venn.a", [A])
+      content("venn.b", [B])
+      content("venn.not-ab", [$overline(A union B)$], anchor: "west")
+    })][#cetz.canvas({
+      cetz-venn.venn2(
+        name: "venn",
+        b-fill: main_color,
+        not-ab-fill: main_color,
+      )
+      import cetz.draw: *
+      content("venn.a", [A])
+      content("venn.b", [B])
+      content("venn.not-ab", [$overline(A)$], anchor: "west")
+    })][#cetz.canvas({
+      cetz-venn.venn2(
+        name: "venn",
+        a-fill: main_color,
+        not-ab-fill: main_color,
+      )
+      import cetz.draw: *
+      content("venn.a", [A])
+      content("venn.b", [B])
+      content("venn.not-ab", [$overline(B)$], anchor: "west")
+    })])
+
+
+
+]
+
+==== Loi d'absorption
+
+$ A union (A sect B) = A $
+
+$ A sect (A union B) = A $
+
+$B$ est "absorbé" dans les deux cas.
+
+=== Cardinal (pas la bière)
+
+#definition[
+  Un ensemble $A$ est *fini* si son nombre d'éléments distincts est un entier naturel. Sinon, $A$ est infini.
+]
+
+#definition[
+  Si $A$ est fini, le *cardinal* ou la *cardinalité* de $A$, notée $|A| = \#A = "Card"(A)$ est égal au nombre d'éléments distincts de $A$.
+]
+
+#example[
+  $|{a,b,c,...,z}| = 26$, $|emptyset| = |{}| = 0$
+]

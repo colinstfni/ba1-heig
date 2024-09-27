@@ -29,6 +29,8 @@
 #let enable-line-numbers = () => codly(number-format: number-format)
 #let disable-line-numbers = () => codly(number-format: none)
 
+#let inter = math.sect
+
 #let conf(
   title: [],
   title_color: color.aqua,

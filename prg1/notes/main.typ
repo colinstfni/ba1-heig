@@ -1,6 +1,7 @@
 #import "../../typst/config.typ": *
 #import "@preview/gentle-clues:1.0.0": *
 #import "@preview/codly:1.0.0": *
+#import "@preview/fletcher:0.5.1" as fletcher: diagram, node, edge
 
 #set text(lang: "fr")
 
@@ -443,4 +444,94 @@ Il existe également l'opérateur ```cpp ++i``` ou ```cpp i++```. Ce dernier est
 ]
 
 Il faut évidemment que la variable assignée ne soit pas constante puisqu'on change sa valeur.
+
+== Pointeurs et références
+
+En C, les pointeurs sont essentiels à la programmation, en C++ un peu moins, cependant, il est tout de même pertinent de savoir les manipuler afin d'être à l'aise dans plusieurs cas de figures, e.g. passage de paramètre par référence ou par valeur.
+
+Presque tout ce qui existe en C, existe ausi en C++, et pour manipuler ces types de données, il est souvent nécessaire de faire appel aux pointeurs.
+
+=== Opérateur d'adresse ```cpp&```
+
+Il permet de récupérer *l'addresse mémoire* d'une variable:
+
+```cpp
+int x = 5;
+cout << &x; // 0x0002
+```
+
+Cet opérateur renvoie un *pointeur* du type ```cpp int*```
+
+=== Opérateur de déréférencement ```cpp *```
+
+Il permet de *récupérer et changer la valeur* de la variable pointée:
+
+```cpp
+int x = 5;
+cout << &x;    // 0x0002
+cout << *(&x); // 5
+*(&x) = 10;
+cout << x;     // 10
+```
+
+#figure(
+  diagram(
+    node-stroke: 1pt,
+    edge-stroke: 1pt,
+    node((0, 0), [```cpp int x = 5;```], name: <x>),
+    edge("--", <x_addr>),
+    node(
+      (0, 0.7),
+      [
+        ```cpp 0x0002```
+      ],
+      name: <x_addr>,
+    ),
+    node((1, 0), [```cpp int *ptr = &x;```], name: <ptr>),
+    edge(<x_addr>, <ptr>, "<|-"),
+    edge("--", <ptr_addr>),
+    node(
+      (1, 0.7),
+      [
+        ```cpp 0x0003```
+      ],
+      name: <ptr_addr>,
+    ),
+  ),
+  caption: [
+    Représentation d'un pointeur vers une variable
+  ]
+)
+
+=== Pointeurs vers constantes et pointeurs constants
+
+Parfois, la valeur pointée n'est pas modifiable, il faut donc modifier le type du pointeur en accord avec celui de la variable:
+
+```cpp
+const int x = 5;
+const int *ptr = &x;
+```
+
+Le pointeur lui-même reste modifiable, mais pas la valeur pointée.
+
+```cpp
+const int x = 5;
+const int *ptr = &x;
+const int y = 10;
+*ptr = 6; // erreur
+ptr = &y; // ok
+```
+
+Il peut également pointer vers une valeur non-```cpp const```. Ce cas de figure peut être utile par exemple lorsqu'on passe une valeur mutable qui ne doit pas être modifiée par une fonction pour éviter les erreurs, ça rend le code plus "robuste".
+
+Les pointeurs constants (déclarés ```cpp const```), sont des pointeurs qui ne *peuvent pas changer d'addresse pointée*, mais *peuvent changer la valeur pointée*.
+
+```cpp
+int x = 5;
+int y = 10;
+int* const cptr = &x; // ok – const pointer vers non const lvalue
+cptr = &y; // erreur – const pointer ne peut pas changer son contenu
+*cptr = 7; // ok – x est modifiable
+cout << *cptr << " " << x; // affiche 7 7
+```
 
