@@ -324,47 +324,49 @@ $ overline(A sect B) = overline(A) union overline(B) $
     align: center,
   )[$A$][$B$][$A union B$][$A union overline(B)$][$overline(A)$][$overline(B)$][$overline(A) sect overline(B)$][0][0][0][1][1][1][1][0][1][1][0][1][0][0][1][0][1][0][0][1][0][1][1][1][0][0][0][0]
   Les colonnes de $overline(A union B) $ et de $overline(A) sect overline(B)$ sont identiques, donc $overline(A union B) = overline(A) sect overline(B)$
-  #figure(grid(columns: 2)[#cetz.canvas({
-      cetz-venn.venn2(
-        name: "venn",
-        a-fill: main_color,
-        b-fill: main_color,
-        ab-fill: main_color
-      )
-      import cetz.draw: *
-      content("venn.a", [A])
-      content("venn.b", [B])
-      content("venn.not-ab", [$A union B$], anchor: "west")
-    }) ][#cetz.canvas({
-      cetz-venn.venn2(
-        name: "venn",
-        not-ab-fill: main_color,
-      )
-      import cetz.draw: *
-      content("venn.a", [A])
-      content("venn.b", [B])
-      content("venn.not-ab", [$overline(A union B)$], anchor: "west")
-    })][#cetz.canvas({
-      cetz-venn.venn2(
-        name: "venn",
-        b-fill: main_color,
-        not-ab-fill: main_color,
-      )
-      import cetz.draw: *
-      content("venn.a", [A])
-      content("venn.b", [B])
-      content("venn.not-ab", [$overline(A)$], anchor: "west")
-    })][#cetz.canvas({
-      cetz-venn.venn2(
-        name: "venn",
-        a-fill: main_color,
-        not-ab-fill: main_color,
-      )
-      import cetz.draw: *
-      content("venn.a", [A])
-      content("venn.b", [B])
-      content("venn.not-ab", [$overline(B)$], anchor: "west")
-    })])
+  #figure(
+    grid(columns: 2)[#cetz.canvas({
+        cetz-venn.venn2(
+          name: "venn",
+          a-fill: main_color,
+          b-fill: main_color,
+          ab-fill: main_color,
+        )
+        import cetz.draw: *
+        content("venn.a", [A])
+        content("venn.b", [B])
+        content("venn.not-ab", [$A union B$], anchor: "west")
+      }) ][#cetz.canvas({
+        cetz-venn.venn2(
+          name: "venn",
+          not-ab-fill: main_color,
+        )
+        import cetz.draw: *
+        content("venn.a", [A])
+        content("venn.b", [B])
+        content("venn.not-ab", [$overline(A union B)$], anchor: "west")
+      })][#cetz.canvas({
+        cetz-venn.venn2(
+          name: "venn",
+          b-fill: main_color,
+          not-ab-fill: main_color,
+        )
+        import cetz.draw: *
+        content("venn.a", [A])
+        content("venn.b", [B])
+        content("venn.not-ab", [$overline(A)$], anchor: "west")
+      })][#cetz.canvas({
+        cetz-venn.venn2(
+          name: "venn",
+          a-fill: main_color,
+          not-ab-fill: main_color,
+        )
+        import cetz.draw: *
+        content("venn.a", [A])
+        content("venn.b", [B])
+        content("venn.not-ab", [$overline(B)$], anchor: "west")
+      })],
+  )
 
 
 
@@ -390,4 +392,105 @@ $B$ est "absorbé" dans les deux cas.
 
 #example[
   $|{a,b,c,...,z}| = 26$, $|emptyset| = |{}| = 0$
+]
+
+=== Ensemble des parties
+
+#definition[
+  Pour un ensemble $A$ donné, *l'ensemble des parties* de $A$, noté $cal(P)(A)$, est l'ensemble contenant tous les sous-ensembles de $A$:
+  $ cal(P)(A) = {x | x subset.eq A} $
+]
+
+#example[
+  $A = {"Oui", "Non"} <==> cal(P) = {emptyset, {"Oui"}, {"Non"}, {"Oui", "Non"}}$
+]
+
+Pour n'importe quel ensemble $A$, on a toujours que:
+
+$ emptyset in cal(P)(A) "et" A in cal(P)(A) $
+
+#theorem[
+  Soit $A$ un ensemble fini, tel que $|A| = n "avec" n in NN$, alors $|cal(P)(A)| = 2^n$
+]
+#proof[
+  On peut décomposer la création d'un ensemble de parties en une suite de $n$ choix indépendants entre "Je prends l'élément" ou "Je ne le prends pas", ce qui équivaut mathématiquement à $2^n$ possibilités.
+]
+
+#example[
+  $A = {"Oui", "Non"}$, donc $|A| = 2 "et" |cal(P)(A)| = 4 = 2^2$
+]
+
+
+=== Produit cartésien
+
+#definition[
+  - Un *couple* $(a,b)$ est une liste *ordonnée* des deux éléments $a "et" b$.
+  - Un *triplet* $(a,b,c)$ est une liste ordonnée de trois éléments $a "," b "et" c$.
+  - Plus généralement un *$bold(n)$-uplet* ($a_0, a_1, ..., a_n$) est une liste ordonnée de n éléments appelés les *composantes*
+]
+
+#example[
+  Le couple $(1, 2)$ est différent de $(2, 1)$, par exemple lorsqu'ils sont représentés sur un graphe.
+]
+
+#definition[
+  Le *produit cartésien* $A times B$ de deux ensembles $A$ et $B$ est l'ensemgle de tous les couples $(a,b)$ tels que $a in A$ et $b in B$
+
+  $ A times B = {(a, b) | a in A, b in B} $
+]
+
+#example[
+  Pour $A = {0, 1}$ et $B = {x,y,z}$, on a:
+
+  $ A times B = {(0,x), (0,y), (0,z), (1,x), (1,y), (1,z)} $
+]
+
+#theorem[
+  Si $|A| = n$ et $|B| = m$, alors $|A times B| = |A| * |B| = n *m$
+]
+
+#proof[
+  En posant un arbre des possibilités de choix de $a$ puis $b$ pour un couplet $(a,b)$, on a d'abord $n$ choix, puis $m$.
+]
+
+On peut généraliser le produit cartésien à $n$ ensembles: $A_1, A_2, ..., A_n$:
+
+$ A_1 times A_2 times ... times A_n = {(a_1, a_2,..., a_n) | a_i in A_i, i in {1,2, ..., n}} $
+
+#remark[
+  Lorsque $A_1 = A_2 = ... = A_n$, alors $A_1 times A_2 times ... times A_n = A times A times ... times A = A^n$
+]
+
+#pagebreak()
+
+== Les Relations
+
+Les relations peuvent être des outils de comparaisons entre objets mathématiques, comme par exemple les nombres ($<$, $=$, ...), ou les ensembles ($in$, $subset.not$, ...)
+
+#definition[
+  Une relation de l'ensemble $A$ vers l'ensemble $B$ est un sous ensemble du produit cartésien $A times B$.
+
+  Si $R$ est une relation de $A$ vers $B$, et si le couple $(a, b) in R$ tel que $a in A, b in B$, aussi noté $a R b$.
+]
+
+#example[
+  $A = { "étudiant de l'école"}, B = { "cours dispensés ce semestre"}$
+
+  L'ensemble $R = { (a, b) in A times B | "l'étudiant " a "suit le cours" b}$ est une relation de $A$ vers $B$.
+]
+
+#example[
+  $ A = {"couleurs"}, B = {"pays"}$
+  
+  On peut définir la relation de correspondance entre une couleur et le drapeau du pays: $R = {(a, b) in A times B | "la couleur" a "dans drapeau du pays" b}$. 
+
+  Ainsi: $("rouge", "Suisse") in R, ("vert", "Espagne") in.not R$
+]
+
+#example[
+  $A = B = ZZ$
+
+  On définit $R = {(a,b) in A times B | a <= b} = {(x,y) in ZZ^2 | x <= y}$.
+
+  $(2,3) in R, (-2, -3) in.not R$
 ]

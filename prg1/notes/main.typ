@@ -535,3 +535,31 @@ cptr = &y; // erreur – const pointer ne peut pas changer son contenu
 cout << *cptr << " " << x; // affiche 7 7
 ```
 
+== Décisions et logique Booléenne
+
+Les décisions en programmation sont essentielles au fonctionnement d'un programme: en effet, la plupart des exécutions sont dynamiques et doivent agir en conséquence des données reçues. Pour ce faire, on utilise la logique booléenne, soit "vrai" (```cpp true```) ou "faux" (```cpp false```).
+
+D'un point de vue syntaxique, en C++, on écrit:
+
+```cpp
+if (condition) {
+  // Instructions si vrai
+} else {
+  // Instructions si faux
+}
+```
+
+=== Imbrication de ```cpp if```
+
+Quand il y a plus de 2 possibilités dans nos conditions, l'instruction de branchement ```cpp else if``` peut être utilisée.
+
+```cpp
+int x; cin >> x;
+if (x == 0) {
+  // Blah
+} else if (x < 0) {
+  // Blah blah
+} else {
+  // BLah 
+}
+```
