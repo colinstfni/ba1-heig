@@ -1,6 +1,7 @@
 #import "../../typst/config.typ": *
-#import "@preview/cetz:0.2.2"
-#import "@preview/cetz-venn:0.1.1"
+#import "@preview/cetz:0.3.1"
+#import "@preview/cetz-venn:0.1.2"
+#import "@preview/cetz-plot:0.1.0"
 
 #set text(lang: "fr")
 
@@ -11,7 +12,7 @@
   title_color: main_color,
   authors: [Colin Stefani],
   header: (
-    [_Septembre 2024_],
+    [_1#super[er] Semestre 2024_],
     [MAD - Ensembles],
     [_CS_],
   ),
@@ -494,3 +495,259 @@ Les relations peuvent être des outils de comparaisons entre objets mathématiqu
 
   $(2,3) in R, (-2, -3) in.not R$
 ]
+
+
+=== Graphes d'une relation
+
+Pour $A$ et $B$ finis, on peut représenter une relation de $A$ vers $B$ par un graphe
+
+- Les éléments de $A$ et $B$ constituent les *sommets* de graphe.
+
+- Chaque couple $(a,b) in R$ est représentré par une flèche allant de $a$ vers $b$ (un *arc*)
+
+
+=== Matrice d'une relation
+
+Pour $A$ et $B$ finis, on peut représenter une relation de $A$ vers $B$ par une matrice $M(R)$ de taille $|A| times |B|$.
+
+#example[
+  $A = {1,2,3}, B = {x,y}$
+  $R = {(2,x), (3,x), (3,y)} <==> M(R) = mat(
+    0,0;
+    1,0;
+    1,1;
+  )$
+]
+
+=== Relation sur un ensemble
+
+#definition[
+  Une relation *sur* un ensemble $A$ est une relation de $A$ sur $A$, c'est à dire un sous-ensemble de $A times A = A^2$.
+]
+
+#example[
+  $A = {"pays"}$ et $R = {(a, b) | "les pays" a "et" b "sont voisins"}$ est une relation *sur $A$*. $("Suisse", "France") in R$, mais $("Italie", "Espagne") in.not R$
+]
+
+L'importance de l'ordre des composantes du couples dans une relation est importante. La ou les conditions de cette dernière ne sont pas toujorus intervertissables (pas toujours linéaire).
+
+#remark[
+  Dans le cas d'une relation sur $A^2$, on utilise plutôt un *graphe orienté* à la place d'un graphe biparti. Les éléments de $A$ sont alors les sommets du graphes et pour chaque $(a,b) in R$, on fait une flèche (arc) de $a$ vers $b$.
+]
+
+=== Complémentaires et inverses
+
+#definition[
+  La relation *complémentaire* d'une relation $R$ de $A$ vers $B$, est elle aussi une relation qui va de $A$ vers $B$, notée $overline(R)$, telle que:
+  $ overline(R) = {(a,b) in A times B | (a, b) in.not R} = (A times B) without R $
+]
+
+#definition[
+  La relation *inverse* d'une relation $R$ de $A$ vers $B$ est une relation de $B$ vers $A$, notée $R^(-1)$, telle que:
+  $ R^(-1) = {(b,a) in B times A | (a, b) in R} $
+]
+
+#example[
+  $A = {"personnes"}$ et $R = {(a,b) in A^2 | a "est enfant de" b}$
+  
+  Alors:
+  -  $overline(R) = {(a,b) in A^2 | a "n'est pas enfant de" b}$ 
+  
+  - $R^(-1) = {(a,b) in A^2 | b "est parent de " a}$
+]
+
+=== Composition de relations
+
+#definition[
+  Soient $R$ une relation de $A$ vers $B$, et $S$ une relation de $B$ vers $C$, alors la *composition* de $R$ par $S$, notée $S compose R$, est la relation telle que:
+  $ S compose R = {(a,c) in A times C | exists b in B "avec" (a,b) in R "et" (b,c) in S} $
+]
+
+#example[
+  Soient $A = {"étudiants"}, B = {"cours"}, C ={"profs"}$
+  
+  On définit les relations $R = {(a,b) in A times B | "étudiant suit le cours"} "et" S={(b,c) in B times C | "cours donné par prof"}$.
+
+  On peut alors dire que:
+  
+   $S compose R = {(a,c) in A times C | "édudiant" a "suit au moins 1 cours donné par le prof" c}$
+]
+
+==== Matrice d'une composition
+
+Si $R$ est une relation de $A$ vers $B$ et $S$ une relation de $B$ vers $C$ de matrices $M(R)$ et $M(S)$, alors on peut déduire la matrice $M(S compose R)$ à partir du produit matriciel $M(R)dot M(S)$.
+
+#remark[
+  On multiplie les lignes par les colonnes ("Abraham Lincoln")
+]
+
+=== Propriétés d'une relation sur un ensemble
+
+Les relations sur un ensemble peuvent être classifiés à l'aide de *quatre* propriétés principales:
+
+- La *réflexivité*
+
+- La *transitivité*
+
+- La *symétrie*
+
+- L'*antisymétrie*
+
+Elles permettent en outre de définir deux types importants de relations: les relations *d'ordre* et *d'équivalence*.
+
+==== Réflexivité
+
+Une relation $R$ sur $A$ est réflexive si $(a,a) in R space forall a in A$.
+
+Autrement dit, il faut que chaque élément soit en relation avec lui-même.
+
+D'un point de vue matriciel, il faut que la diagonale de la matrice soit remplie de $1$:
+
+$
+mat(
+  1, , ,;
+  ,dots.down,, ;
+  ,, dots.down,;
+  ,,, 1
+)
+$
+
+==== Symétrie
+
+Une relation $R$ sur $A$ est symétrique si et seulement si $(a,b) in R  => (b, a) in R$. Autrement dit, si un élément $a$ est associé à $b$, alors $b$ doit également être associé à $a$ pour tout $a,b in A$.
+
+Pour la matrice, cela est représenté graphiquement
+
+== Les Fonctions
+
+=== Notion de fonction
+
+Soient $E$ et $F$ deux ensembles non-vides. Une fonction de $E$ vers $F$ ("$A$ dans $B$") est une correspondance affectant à chaque élément de $E$ *exactement un* élément de $B$.
+
+L'élément de $B$ qui est associé à $a in A$ par la fonction $f$ est noté $f(a)$. De plus, si $b in B$ est tel que $b = f(a)$, alors on dit que:
+
+- $b$ est l'*image* de $a$ par $f$
+
+- $a$ est _une_ *préimage* de $b$ par $f$ (ou un *antécédant*).
+
+Une fonction $f$ de $A$ dans $B$, s'écrit:
+
+$
+f: & A &&--> &&B \
+   & a &&--> &&f(a)
+$
+
+#remark[
+  Un élément de $B$ peut avoir une ou plusieurs préimages, ou aucune.
+]
+
+=== Graphe d'une fonction
+
+#definition[
+  Soit $f: A -> B$, l'ensemble des couples $(a, b)$ tels que $a in A$ et $b = f(a)$, cela définit le #underline[graphe] de la fonction $f$.
+
+  Graphe de $f = {(a, b) in A times B | b = f(a)}$
+]
+
+==== Fonctions numériques
+
+Lorsque $A$ et $B$ sont des ensembles de nombres ($A,B subset.eq RR$), alors on peut identifier le graphe de $f: A -> B$ à un ensemble de points dans le plan $RR^2$, dont les coordonnées $(x, y)$ vérifient que $y = f(x)$.
+
+On parle alors de *représentation graphique*, ou de *courbe représentative* de $f$.
+
+
+En considérant 
+$
+f: &RR &&--> &&RR \
+    &x &&--> &&y = e^(-x^2)
+$ 
+
+
+#let f1(x) = calc.pow(calc.e, -(x*x))
+#{
+set text(size: 10pt)
+figure(cetz.canvas({
+    import cetz.draw: *
+    set-style(
+        axes: (
+            stroke: .5pt, 
+            tick: (
+                stroke: .5pt
+            )
+        ),
+        legend: (
+            stroke: none, 
+            orientation: ttb, 
+            item: (
+                spacing: .3
+            ), 
+            scale: 80%
+        )
+    )
+
+    cetz-plot.plot.plot(
+        size: (12, 8),
+        axis-style: "school-book",
+        x-tick-step: 1,
+        y-tick-step: 1, y-min: -2, y-max: 2,
+        legend: "inner-north-east",
+        legend-style: (
+            stroke: black,
+            fill: none,
+            radius: 5pt,
+            padding: .5em,
+        ),
+        {
+            let domain = (-2.5, 2.5)
+            cetz-plot.plot.add(f1, domain: domain, label: $ f(x)  $,
+            style: (stroke: blue + 2pt))
+        }
+    )
+}))
+}
+
+Le graphe de $f$ dans ce cas-ci est ${(x,y) in RR^2 | y = e^(-x^2)}$.
+
+=== Fonctions et relations
+
+Le graphe d'une fonction $f: A -> B$ est une sous-ensemble de $A times B$, donc il peut être vu comme une relation de $A$ vers $B$.
+
+Si on identifie une fonction à son graphe, une fonction $f: A-> B$ peut être considérée comme une relation de $A$ vers $B$, avec la propriété que chaque élément $a in A$ est en relation avec un *unique* $b in B$.
+
+#example[
+  La relation $R = {(x,y) in ZZ^2 | y = 2x}$ est une fonction car à chaque $x$ est associé un seul $y$.
+
+  Par contre, la relation $R = {(x,y) in ZZ^2 | x^2 = y^2}$ n'est pas une relation car par exemple $x = -1$ est en relation avec $y_1 = -1$ et $y_2 = 1$.
+]
+
+=== Domaine et image
+
+
+Soit $f: A -> B$, on a:
+
+- L'ensemble $A$ est appelé le domaine de définition de $f$.
+  
+- L'ensemble $B$ est appelé le codomaine de $f$.
+  
+- L'ensemble de toutes les images des éléments de $A$ est appelé l'image de $f$. On la note $"Im"(f) = f(A) = {f(a) | a in A}$
+
+Plus généralement, pour toute $M subset.eq A$, on peut définir l'image de $M$ par $f(M) = {f(m) | m in M}$.
+
+Pour tout $T subset.eq B$, on définit l'image réciproque de $T$, notée $f^(-1)(T)$ pour $f^(-1)(T) = {a in A | f(a) in T}$.
+
+_Exemple:_
+
+Avec $g: A -> B$, correspondant à la relation $ S = {(1,x), (2,x), (3,z), (4,z)} $ Ainsi que $A = {1,2,3,4} "et" B = {x,y,z}$.
+
+- Le domaine de $g$ est $A = {1,2,3,4}$
+
+- Le codomaine de $g$ est $B = {x,y,z}$
+
+- L'image de $g$ est $"Im"(g) = {x,z}$
+
+- L'image de ${1,2}$ est $f({1,2}) = {x}$
+
+- L'image réciproque de ${z}$ est $g^(-1)({z}) = {3,4}$
+
+- L'image réciproque de ${y}$ est $g^(-1)({y}) = {} = emptyset$
+
