@@ -616,8 +616,16 @@ $
 
 Une relation $R$ sur $A$ est symétrique si et seulement si $(a,b) in R  => (b, a) in R$. Autrement dit, si un élément $a$ est associé à $b$, alors $b$ doit également être associé à $a$ pour tout $a,b in A$.
 
-Pour la matrice, cela est représenté graphiquement
+Pour la matrice, cela est représenté graphiquement par la symmétrie de tous les nombres par rapport à la diagonale.
 
+$
+  mat(
+    dots.down,,1,,;
+    ,dots.down,,,;
+    1,,dots.down,0,;
+    ,,0,dots.down,;
+  )
+$
 == Les Fonctions
 
 === Notion de fonction
@@ -751,3 +759,84 @@ Avec $g: A -> B$, correspondant à la relation $ S = {(1,x), (2,x), (3,z), (4,z)
 
 - L'image réciproque de ${y}$ est $g^(-1)({y}) = {} = emptyset$
 
+
+=== Modulo
+
+#definition[
+  Soit $a in ZZ$ et $m in NN^*$. On note $a mod m$ ($a % m$) le reste de la division entière de $a$ par $m$.
+]
+
+Par définition, le reste dans la définition de $a$ par $m$ est $0 <= r < a$, tel que $a = m k + r$, avec $k in ZZ$.
+
+_Exemples:_
+
+- $17 space mod space 5 = 2$
+
+- $134 space mod space 205 = 134$
+
+- $94 space mod space 9 = 5$
+
+=== Fonction factorielle
+
+#definition[
+  Soit $n in NN$, on définit la factorielle de $n$, notée $n!$ comme le produit des entiers de $1$ à $n$:
+  $ 1 dot 2 dot ... dot n = product_(k = 1)^n k $
+]
+
+Pour $n = 0$, on a $n! = 1$. 
+
+- La factorielle croit très rapidement et est $> 2^n$ pour $n >= 4$.
+
+- La factorielle apparait beaucoup en combinatoire et en analyse, notamment avec les développments de Taylor: $ e^x = sum_(k = 0)^(infinity) x^k/k!  $
+
+=== Bijection et cardinalité
+
+_Rappel_: Le cardinal d'un ensemble *fini* est le nombre d'éléments distincts de l'ensemble.
+
+#definition[
+  Deux ensembles $A$ et $B$ ont le même cardinal si et seulement si il existe une bijection de $A$ sur $B$. On dit alors qu'ils sont *équipotents*.
+]
+
+_Exemple_: Si $A$ est fini, il est possible de numéroter ses éléments de $1$ à $n = |A|$. On a alors une bijection de $A$ vers ${1, ..., n}$.
+
+Un ensemble $A != emptyset$ est donc fini si il est équipotent avec l'ensemble ${1,...,n}$ pour $n in NN$.
+
+_Exemple_: L'ensemble $NN$ est un ensemble infini. Son cardinal, noté $aleph$ ("aleph 0")
+
+$
+f: &NN -> NN^* \
+   &x |-> x + 1 \
+   \
+f: &NN -> 2NN space ("nombres pairs") \
+&x |-> 2x
+$
+
+$f$ est bijective dans les deux cas.
+On peut également prouver que tout $A in P(NN)$, $A$ est équipotent avec $NN$, soit $aleph$ est le "plus petit cardinal" des ensembles infinis.
+
+=== Ensembles dénombrables
+
+#definition[
+  Un ensemble qui est soit fini, soit de même cardinal que $NN$ est dit dénombrable. Dans le cas contraire, l'ensemble est dit *non-dénombrable*.
+]
+
+_Exemple_: $ZZ$ est-il dénombrable ? Si on définit $f$:
+
+$
+f : NN &--> ZZ \ 
+x &-->&cases(x/2 "si" x = 2k | k in ZZ, (x-1)/2 "si" x = 2k + 1 | k in ZZ)
+$
+
+Tous les entiers de $ZZ$ sont effectivement atteints par $f$, qui alterne en fonction de la parité de $x$.
+
+#theorem[
+  Pour tout ensemble $A$, $|cal(P)(A)| > |A|$.
+]
+
+_Exemple_: Pour $A = NN$, on a que $|cal(P)(A)| > |A|$, et on a donc que $cal(P)(A)$ n'est pas dénombrable.
+
+Les ensembles dénombrables sont communément: $NN, ZZ, QQ, ZZ^k$, tandis que ceux qui ne le sont pas: $cal(P)(NN), RR, [0; 1], ...$
+
+_Propriété_: Si $B subset.eq A$, alors $|B| <= |A|$. En particulier, si $A$ est dénombrable, tous ses sous ensembles le sont aussi. De même, si $B$ est non-dénombrable, $A$ qui contient $B$, est lui aussi non-dénombrable.
+
+_Propriété_: S'il existe une injection de $A$ vers $B$, alors on a que $|A| <= |B|$. S'il existe une surjection, on a à l'inverse que $|A| >= |B|$.
