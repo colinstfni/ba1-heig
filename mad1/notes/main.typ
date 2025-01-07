@@ -19,6 +19,8 @@
   doc,
 )
 
+#pagebreak()
+
 == Les ensembles
 
 === Ensembles et éléments
@@ -275,7 +277,7 @@ On note également les propriétés suivantes:
 On note aussi:
 $ A xor B = (A without B) union (B without A) = (A union B) without (A sect B) $
 
-#pagebreak()
+// #pagebreak()
 
 === Propriétés et Identités
 
@@ -462,7 +464,7 @@ $ A_1 times A_2 times ... times A_n = {(a_1, a_2,..., a_n) | a_i in A_i, i in {1
   Lorsque $A_1 = A_2 = ... = A_n$, alors $A_1 times A_2 times ... times A_n = A times A times ... times A = A^n$
 ]
 
-#pagebreak()
+// #pagebreak()
 
 == Les Relations
 
@@ -481,9 +483,9 @@ Les relations peuvent être des outils de comparaisons entre objets mathématiqu
 ]
 
 #example[
-  $ A = {"couleurs"}, B = {"pays"}$
-  
-  On peut définir la relation de correspondance entre une couleur et le drapeau du pays: $R = {(a, b) in A times B | "la couleur" a "dans drapeau du pays" b}$. 
+  $A = {"couleurs"}, B = {"pays"}$
+
+  On peut définir la relation de correspondance entre une couleur et le drapeau du pays: $R = {(a, b) in A times B | "la couleur" a "dans drapeau du pays" b}$.
 
   Ainsi: $("rouge", "Suisse") in R, ("vert", "Espagne") in.not R$
 ]
@@ -549,10 +551,10 @@ L'importance de l'ordre des composantes du couples dans une relation est importa
 
 #example[
   $A = {"personnes"}$ et $R = {(a,b) in A^2 | a "est enfant de" b}$
-  
+
   Alors:
-  -  $overline(R) = {(a,b) in A^2 | a "n'est pas enfant de" b}$ 
-  
+  - $overline(R) = {(a,b) in A^2 | a "n'est pas enfant de" b}$
+
   - $R^(-1) = {(a,b) in A^2 | b "est parent de " a}$
 ]
 
@@ -565,12 +567,12 @@ L'importance de l'ordre des composantes du couples dans une relation est importa
 
 #example[
   Soient $A = {"étudiants"}, B = {"cours"}, C ={"profs"}$
-  
+
   On définit les relations $R = {(a,b) in A times B | "étudiant suit le cours"} "et" S={(b,c) in B times C | "cours donné par prof"}$.
 
   On peut alors dire que:
-  
-   $S compose R = {(a,c) in A times C | "édudiant" a "suit au moins 1 cours donné par le prof" c}$
+
+  $S compose R = {(a,c) in A times C | "édudiant" a "suit au moins 1 cours donné par le prof" c}$
 ]
 
 ==== Matrice d'une composition
@@ -595,6 +597,8 @@ Les relations sur un ensemble peuvent être classifiés à l'aide de *quatre* pr
 
 Elles permettent en outre de définir deux types importants de relations: les relations *d'ordre* et *d'équivalence*.
 
+#pagebreak()
+
 ==== Réflexivité
 
 Une relation $R$ sur $A$ est réflexive si $(a,a) in R space forall a in A$.
@@ -604,7 +608,7 @@ Autrement dit, il faut que chaque élément soit en relation avec lui-même.
 D'un point de vue matriciel, il faut que la diagonale de la matrice soit remplie de $1$:
 
 $
-mat(
+  mat(
   1, , ,;
   ,dots.down,, ;
   ,, dots.down,;
@@ -641,14 +645,17 @@ L'élément de $B$ qui est associé à $a in A$ par la fonction $f$ est noté $f
 Une fonction $f$ de $A$ dans $B$, s'écrit:
 
 $
-f: & A &&--> &&B \
-   & a &&--> &&f(a)
+  f: & A &&--> &&B \
+  & a &&--> &&f(a)
 $
 
 #remark[
   Un élément de $B$ peut avoir une ou plusieurs préimages, ou aucune.
 ]
 
+
+
+#pagebreak()
 === Graphe d'une fonction
 
 #definition[
@@ -657,6 +664,8 @@ $
   Graphe de $f = {(a, b) in A times B | b = f(a)}$
 ]
 
+
+
 ==== Fonctions numériques
 
 Lorsque $A$ et $B$ sont des ensembles de nombres ($A,B subset.eq RR$), alors on peut identifier le graphe de $f: A -> B$ à un ensemble de points dans le plan $RR^2$, dont les coordonnées $(x, y)$ vérifient que $y = f(x)$.
@@ -664,54 +673,57 @@ Lorsque $A$ et $B$ sont des ensembles de nombres ($A,B subset.eq RR$), alors on 
 On parle alors de *représentation graphique*, ou de *courbe représentative* de $f$.
 
 
-En considérant 
+En considérant
 $
-f: &RR &&--> &&RR \
-    &x &&--> &&y = e^(-x^2)
-$ 
+  f: &RR &&--> &&RR \
+  &x &&--> &&y = e^(-x^2)
+$
 
 
-#let f1(x) = calc.pow(calc.e, -(x*x))
+#let f1(x) = calc.pow(calc.e, -(x * x))
 #{
-set text(size: 10pt)
-figure(cetz.canvas({
-    import cetz.draw: *
-    set-style(
+  set text(size: 10pt)
+  figure(
+    cetz.canvas({
+      import cetz.draw: *
+      set-style(
         axes: (
-            stroke: .5pt, 
-            tick: (
-                stroke: .5pt
-            )
+          stroke: .5pt,
+          tick: (
+            stroke: .5pt,
+          ),
         ),
         legend: (
-            stroke: none, 
-            orientation: ttb, 
-            item: (
-                spacing: .3
-            ), 
-            scale: 80%
-        )
-    )
+          stroke: none,
+          orientation: ttb,
+          item: (
+            spacing: .3,
+          ),
+          scale: 80%,
+        ),
+      )
 
-    cetz-plot.plot.plot(
+      cetz-plot.plot.plot(
         size: (12, 8),
         axis-style: "school-book",
         x-tick-step: 1,
-        y-tick-step: 1, y-min: -2, y-max: 2,
+        y-tick-step: 1,
+        y-min: -2,
+        y-max: 2,
         legend: "inner-north-east",
         legend-style: (
-            stroke: black,
-            fill: none,
-            radius: 5pt,
-            padding: .5em,
+          stroke: black,
+          fill: none,
+          radius: 5pt,
+          padding: .5em,
         ),
         {
-            let domain = (-2.5, 2.5)
-            cetz-plot.plot.add(f1, domain: domain, label: $ f(x)  $,
-            style: (stroke: blue + 2pt))
-        }
-    )
-}))
+          let domain = (-2.5, 2.5)
+          cetz-plot.plot.add(f1, domain: domain, label: $ f(x) $, style: (stroke: blue + 2pt))
+        },
+      )
+    }),
+  )
 }
 
 Le graphe de $f$ dans ce cas-ci est ${(x,y) in RR^2 | y = e^(-x^2)}$.
@@ -734,9 +746,9 @@ Si on identifie une fonction à son graphe, une fonction $f: A-> B$ peut être c
 Soit $f: A -> B$, on a:
 
 - L'ensemble $A$ est appelé le domaine de définition de $f$.
-  
+
 - L'ensemble $B$ est appelé le codomaine de $f$.
-  
+
 - L'ensemble de toutes les images des éléments de $A$ est appelé l'image de $f$. On la note $"Im"(f) = f(A) = {f(a) | a in A}$
 
 Plus généralement, pour toute $M subset.eq A$, on peut définir l'image de $M$ par $f(M) = {f(m) | m in M}$.
@@ -783,7 +795,7 @@ _Exemples:_
   $ 1 dot 2 dot ... dot n = product_(k = 1)^n k $
 ]
 
-Pour $n = 0$, on a $n! = 1$. 
+Pour $n = 0$, on a $n! = 1$.
 
 - La factorielle croit très rapidement et est $> 2^n$ pour $n >= 4$.
 
@@ -804,11 +816,11 @@ Un ensemble $A != emptyset$ est donc fini si il est équipotent avec l'ensemble 
 _Exemple_: L'ensemble $NN$ est un ensemble infini. Son cardinal, noté $aleph$ ("aleph 0")
 
 $
-f: &NN -> NN^* \
-   &x |-> x + 1 \
-   \
-f: &NN -> 2NN space ("nombres pairs") \
-&x |-> 2x
+  f: &NN -> NN^* \
+  &x |-> x + 1 \
+  \
+  f: &NN -> 2NN space ("nombres pairs") \
+  &x |-> 2x
 $
 
 $f$ est bijective dans les deux cas.
@@ -823,8 +835,8 @@ On peut également prouver que tout $A in P(NN)$, $A$ est équipotent avec $NN$,
 _Exemple_: $ZZ$ est-il dénombrable ? Si on définit $f$:
 
 $
-f : NN &--> ZZ \ 
-x &-->&cases(x/2 "si" x = 2k | k in ZZ, (x-1)/2 "si" x = 2k + 1 | k in ZZ)
+  f : NN &--> ZZ \
+  x &-->&cases(x/2 "si" x = 2k | k in ZZ, (x-1)/2 "si" x = 2k + 1 | k in ZZ)
 $
 
 Tous les entiers de $ZZ$ sont effectivement atteints par $f$, qui alterne en fonction de la parité de $x$.
@@ -840,3 +852,167 @@ Les ensembles dénombrables sont communément: $NN, ZZ, QQ, ZZ^k$, tandis que ce
 _Propriété_: Si $B subset.eq A$, alors $|B| <= |A|$. En particulier, si $A$ est dénombrable, tous ses sous ensembles le sont aussi. De même, si $B$ est non-dénombrable, $A$ qui contient $B$, est lui aussi non-dénombrable.
 
 _Propriété_: S'il existe une injection de $A$ vers $B$, alors on a que $|A| <= |B|$. S'il existe une surjection, on a à l'inverse que $|A| >= |B|$.
+
+
+== Suites et Séries
+
+=== Limites d'une suite infinie
+
+#definition[
+  On dit que la suite $(a_k, k in NN)$ admet pour limite le nombre $ell in RR$, si pour n'importe quel intervalle contenant $ell$, tous les termes de la suite appartiennent à cet intervalle à partir d'un indice suffisamment grand. On dit alors que la suite *converge* vers $ell$. On écrit:
+
+  $
+    lim_(k -> oo) a_k = ell
+  $
+]
+
+_Exemples:_
+
+- On considère la suite $a_k = k / (k+1) = k/(k+1) dot (k^(-1))/(k^(-1)) = 1/(1 + 1/k)$, sa limite vaut donc $lim_(k -> oo) = 1/(1 + 1/k) = 1/(1 + 0) = 1$.
+
+- La suite $a_k = (-1)^k$ ne converge pas car elle oscille constamment entre $-1$ et $1$.
+
+==== Suites arithmétiques
+
+#definition[
+  Une suite arithmétique est une suite où la différence entre deux termes consécutifs est constante. La différence, notée $r$, est aussi appelée la *raison* de la suite.
+]
+
+_Propriété:_ Le terme général d'une suite arithmétique de raison $r$ est $a_k = a_0 + k r$, ou par récurrence $a_k = a_(k-1) + r$.
+
+$$
+
+==== Suites Géométriques
+
+#definition[
+  Une suite #underline[géométrique] est une suite où le rapport entre deux termes consécutifs est constant. Ce rapport (commun) $r$ est appelé la #underline[raison] de la suite.
+]
+
+_Propriété:_ Le terme général d'une suite géométrique est donné par:
+
+$
+  cases(
+  space a_k = a_(k-1) dot r | k >= 1,
+  space a_0 in RR "donné",
+  gap: #{.5em + 1%},
+)
+$
+
+Ou de manière plus générale:
+
+$
+  a_k = a_0 dot r^k | k in NN
+$
+
+_Exemples:_
+
+#let display_suite_geo = (domain, r, tick) => {
+  let points = range(domain.first(), domain.last()).map(x => (x, calc.pow(r, x)))
+  set text(size: 10pt)
+
+  figure(
+    cetz.canvas({
+      import cetz.draw: *
+      set-style(
+        axes: (
+          stroke: .5pt,
+          tick: (
+            stroke: .5pt,
+          ),
+        ),
+        legend: (
+          stroke: none,
+          orientation: ttb,
+          item: (
+            spacing: .3,
+          ),
+          scale: 80%,
+        ),
+      )
+
+      cetz-plot.plot.plot(
+        size: (6, 5),
+        axis-style: "school-book",
+        x-tick-step: tick.first(),
+        y-tick-step: tick.last(),
+        x-label: $k$,
+        legend: "inner-north-east",
+        legend-style: (
+          stroke: black,
+          fill: white,
+          radius: 5pt,
+          padding: .5em,
+        ),
+        {
+          cetz-plot.plot.add(
+            points,
+            domain: domain,
+            label: $ a_k $,
+            style: (stroke: none),
+            mark: "o",
+            mark-style: (stroke: blue, fill: blue.lighten(50%)),
+          )
+        },
+      )
+    }),
+    caption: $(#r)^k$
+  )
+}
+
+
+#grid(columns: 2, align: center + bottom, gutter: 1em, display_suite_geo((0, 10), 1.25, (1,1)), display_suite_geo((0, 10), -1.25, (1,2)), display_suite_geo((0, 10), 0.75, (1,.5)), display_suite_geo((0, 10), -.75, (1,.5)))
+
+En résumé:
+
+- Si $r > 1$, la suite est croisssante et diverge vers $+oo$.
+
+- Si $r < −1$, la suite est alternée et ne converge pas (elle diverge en valeur absolue vers $+oo$).
+
+- Si $r = 1$, la suite est constante et, évidemment, convergente.
+
+- Si $r = −1$, les termes de la suite alternent entre $1$ et $-1$
+\
+==== Suites arithmético-géométriques
+
+On définit une suite arithmético-géométrique de la manière suivante:
+
+$
+cases(
+  space a_k = a_(k-1) dot r + c,
+  space a_0 in RR "donné",
+  gap: #1em
+)
+$
+
+Cette dernière consiste en la combinaison des deux types de suites précédemment vues.
+
+=== Sommes
+
+#definition[
+  Pour calculer la somme des termes d'une suite $a_k$, on utilise la notation abrégée, dite notation "sigma":
+
+  $
+  sum_(k=0)^n a_k = a_0 + ... + a_k + ... + a_n
+  $
+
+  où $k$ est *l'indice de sommation*.
+]
+
+_Remarque:_ Le choix de la variable d'indice est arbitraire:
+
+$
+sum_(i=0)^n a_i = sum_(j=0)^n a_j = sum_(k=0)^n a_k
+$
+
+_Exemple:_ Pour la suite $a_k = (-1)^k | k >= 0$, on a:
+
+$
+sum_(k=0)^3 a_k = sum_(k=0)^3 (-1)^k &= (-1)^0  + (-1)^1 + (-1)^2 + (-1)^3 \
+&= 1 - 1 + 1 -1 \ &= 0
+$
+
+De manière plus générale, on peut également dire que:
+
+$
+sum_(k=0)^n a_k = cases(gap:#1em, space 1 "si" n eq.triple 0 space (mod 2), space 0 "si" n eq.triple 1 space (mod 2))
+$
